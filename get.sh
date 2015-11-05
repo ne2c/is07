@@ -1,4 +1,5 @@
 __check_environment() {
+  yum --quiet --assumeyes install git
   if [ -z "$PROJECTNAME" ]; then
     echo "The project name must be set."
     return 1
@@ -13,7 +14,13 @@ __check_environment() {
 }
 __setup_project() {
   if [ $? -eq 0 ]; then
-    git clone $REPO_HTTPS .
+    if ! [ -d ./infra/ ]; then
+      git clone $REPO_HTTPS ./infra/
+    else
+      pushd ./infra/ &&
+        git pull --no-ff &&
+      popd
+    fi
   fi
 }
 # Function calls
