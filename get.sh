@@ -1,5 +1,5 @@
 __check_environment() {
-  yum --quiet --assumeyes install git
+  sudo yum --quiet --assumeyes install git
   if [ -z "$PROJECTNAME" ]; then
     echo "The project name must be set."
     return 1
